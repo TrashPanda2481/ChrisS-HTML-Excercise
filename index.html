@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Validated Payment Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .form-container {
+      max-width: 900px;
+      margin: 30px auto;
+    }
+    .card-icons {
+      background-color: #6c757d;
+      border-radius: 5px;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container form-container">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="mb-0 fw-bold">Payment form example</h4>
+    </div>
+    <div class="card-body">
+      <div id="formAlert" class="alert alert-danger d-none">Some fields are missing</div>
+
+      <form novalidate>
+        <div class="row mb-3">
+          <div class="col-md-6 col-lg-4">
+            <label for="cardNumber" class="form-label">Card #</label>
+            <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456"
+              required pattern="\d{13,19}" title="Card number must be 13 to 19 digits">
+          </div>
+          <div class="col-md-3 col-lg-2">
+            <label for="cvc" class="form-label">CVC #</label>
+            <input type="text" class="form-control" id="cvc" placeholder="123"
+              required pattern="\d{3,4}" title="3 or 4 digit CVC">
+          </div>
+          <div class="col-md-3 col-lg-2">
+            <label for="amount" class="form-label">Amount</label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input type="number" class="form-control" id="amount" placeholder="Amount" required min="0.01" step="0.01">
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4">
+            <label for="paymentDate" class="form-label">Payment Date</label>
+            <input type="date" class="form-control" id="paymentDate" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" required>
+          </div>
+          <div class="col-md-6">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-5">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required placeholder="name@example.com">
+          </div>
+          <div class="col-md-4">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="tel" class="form-control" id="phone" required pattern="\d{10,15}" title="Enter 10 to 15 digit phone number">
+          </div>
+          <div class="col-md-3">
+            <label for="postal" class="form-label">Postal Code</label>
+            <input type="text" class="form-control" id="postal" required pattern="\d{4,10}" title="Enter a valid postal code">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" required>
+          </div>
+          <div class="col-md-6">
+            <label for="state" class="form-label">State</label>
+            <select class="form-select" id="state" required>
+              <option value="" disabled selected>Pick a state</option>
+              <option>California</option>
+              <option>New York</option>
+              <option>Texas</option>
+              <option>Florida</option>
+              <!-- Add more states as needed -->
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">We accept:</label>
+          <div class="card-icons d-inline-block">
+            <img src="https://img.icons8.com/ios-filled/24/ffffff/mastercard-logo.png" alt="Mastercard"/>
+            <img src="https://img.icons8.com/ios-filled/24/ffffff/visa.png" alt="Visa"/>
+            <img src="https://img.icons8.com/ios-filled/24/ffffff/discover.png" alt="Discover"/>
+            <img src="https://img.icons8.com/ios-filled/24/ffffff/amex.png" alt="Amex"/>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea class="form-control" id="message" rows="3" placeholder="Add any notes here."></textarea>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button type="reset" class="btn btn-secondary me-2">Cancel</button>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.querySelector("form").addEventListener("submit", function(event) {
+  const form = event.target;
+  const alertBox = document.getElementById("formAlert");
+
+  if (!form.checkValidity()) {
+    event.preventDefault(); // stop form submission
+    event.stopPropagation();
+    alertBox.classList.remove("d-none"); // show alert
+  } else {
+    alertBox.classList.add("d-none"); // hide alert if all is good
+  }
+
+  form.classList.add("was-validated"); // Bootstrap style validation
+});
+</script>
+</body>
+</html>
